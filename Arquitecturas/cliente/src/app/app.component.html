@@ -1,0 +1,34 @@
+<style>
+  .remove-button {
+    margin-left: 12px;
+    font-size: xx-small;
+  }
+  .item {
+    margin-top: 15px;
+  }
+</style>
+
+<div class="container">
+  <h2>Todo App</h2>
+
+  <div class="input-group mb-3">
+    <input #todoAdd type="text" class="form-control" placeholder="Todo" aria-label="Todo" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="button" (click)="addTodo(todoAdd.value); todoAdd.value = ''">Add</button>
+    </div>
+  </div>
+
+  <div>
+    <ul class="list-group" *ngFor="let todo of todos">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>{{todo.description}}</span>
+        <div class="badge badge-primary badge-pill">
+          <button class="btn btn-danger remove-button" (click)="removeTodo(todo.id)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
