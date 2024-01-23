@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  rabbitmq:
+    image: rabbitmq:3.12.10-management-alpine
+    ports:
+      - 5672:5672
+      - 5673:5673
+      - 15672:15672
+    networks:
+      - message
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+  consumer:
+    image: jgavirias13/messageconsumer:v1
+    restart: always
+    networks:
+      - message
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+networks:
+  message:

@@ -1,0 +1,21 @@
+version: "3.7"
+
+services: 
+    server:
+        image: jgavirias13/servidor:v1
+        networks: 
+            - "fault_tolerance"
+
+    ngnix-server:
+        image: nginx:1.25.3
+        ports:
+            - "8080:80"
+        volumes:
+            - './nginx.conf:/etc/nginx/nginx.conf'
+        networks:
+            - "fault_tolerance"
+        depends_on: 
+            - server
+
+networks: 
+    fault_tolerance:
